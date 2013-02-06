@@ -2,10 +2,12 @@
 
 from distutils.core import setup, Extension
 
-gpio = Extension('gpio',
-                    sources = ['gpiomodule.c'])
+bsd_ext = Extension('_bsdgpio',
+                    sources = ['_bsdgpiomodule.c'])
 
 setup (name = 'gpio',
        version = '1.0',
        description = 'FreeBSD GPIO access wrapper',
-       ext_modules = [gpio])
+       ext_modules = [bsd_ext],
+       py_modules = ['gpio']
+       );
