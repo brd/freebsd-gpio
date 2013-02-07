@@ -20,6 +20,16 @@ foreach my $p (0..$max_pin) {
     print "#$p: name=$name, value=$value, config=<$config>, caps=<$caps>\n";
 }
 
+
+# pin LOW, LED is on
+$controller->set_pin_value(16, GPIO::LOW);
+sleep(1);
+
+# pin HIGH, LED is on
+$controller->set_pin_value(16, GPIO::HIGH);
+sleep(1);
+
+# Blink LED
 foreach (0..100) {
     $controller->toggle_pin_value(16);
     usleep(50000);
