@@ -6,25 +6,25 @@ import gpio
 def flags2str(flags):
     strs = []
 
-    if (flags & gpio.GPIO_PIN_INPUT):
+    if (flags & gpio.PIN_INPUT):
         strs.append('INPUT')
-    if (flags & gpio.GPIO_PIN_OUTPUT):
+    if (flags & gpio.PIN_OUTPUT):
         strs.append('OUTPUT')
-    if (flags & gpio.GPIO_PIN_OPENDRAIN):
+    if (flags & gpio.PIN_OPENDRAIN):
         strs.append('OPENDRAIN')
-    if (flags & gpio.GPIO_PIN_PUSHPULL):
+    if (flags & gpio.PIN_PUSHPULL):
         strs.append('PUSHPULL')
-    if (flags & gpio.GPIO_PIN_TRISTATE):
+    if (flags & gpio.PIN_TRISTATE):
         strs.append('TRISTATE')
-    if (flags & gpio.GPIO_PIN_PULLUP):
+    if (flags & gpio.PIN_PULLUP):
         strs.append('PULLUP')
-    if (flags & gpio.GPIO_PIN_PULLDOWN):
+    if (flags & gpio.PIN_PULLDOWN):
         strs.append('PULLDOWN')
-    if (flags & gpio.GPIO_PIN_INVIN):
+    if (flags & gpio.PIN_INVIN):
         strs.append('INVIN')
-    if (flags & gpio.GPIO_PIN_INVOUT):
+    if (flags & gpio.PIN_INVOUT):
         strs.append('INVOUT')
-    if (flags & gpio.GPIO_PIN_PULSATE):
+    if (flags & gpio.PIN_PULSATE):
         strs.append('PULSATE')
 
     return ','.join(strs)
