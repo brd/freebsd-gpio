@@ -106,7 +106,7 @@ _bsdgpio_toggle_value(PyObject *self, PyObject *args)
         return NULL;
     }
 
-    return Py_BuildValue("i", req.gp_value);
+    Py_RETURN_NONE;
 }
 
 static PyObject *
