@@ -50,8 +50,17 @@ for p in range(0, max_pin + 1):
 
     print "#%3d: %s, value=%d, config=<%s>, caps=<%s>" % (p, name, value, config, caps)
 
-# blink LED several times
 led_pin = gpioc.pin(16)
+
+# pin LOW, LED is on
+led_pin.value = gpio.LOW;
+sleep(1);
+
+# pin HIGH, LED is off
+led_pin.value = gpio.HIGH;
+sleep(1);
+
+# blink LED several times
 for i in range(100):
     led_pin.toggle()
     sleep(0.05)

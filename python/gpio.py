@@ -12,6 +12,9 @@ PIN_INVIN       = 0x0080
 PIN_INVOUT      = 0x0100
 PIN_PULSATE     = 0x0200
 
+LOW             = 0
+HIGH            = 1
+
 class GpioError(Exception):
     pass
 
