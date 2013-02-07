@@ -4,7 +4,36 @@
 
 #include <sys/gpio.h>
 
+struct iv_s {
+    const char *name;
+    IV value;
+};
+
+static void
+constant_add_symbol(pTHX_  HV *hash, const char *name, I32 namelen, SV *value) 
+{
+    HE *he = (HE*) hv_common_key_len(hash, name, namelen, HV_FETCH_LVALUE, NULL, 0);
+    SV *sv;
+
+    if (!he) {
+        Perl_croak(aTHX_  "Couldn't add key '%s' to %%GPIO::",
+                   name);
+    }
+    sv = HeVAL(he);
+    if (SvOK(sv) || SvTYPE(sv) == SVt_PVGV) {
+        /* Someone has been here before us - have to make a real sub.  */
+        newCONSTSUB(hash, name, value);
+    } else {
+        SvUPGRADE(sv, SVt_RV);
+        SvRV_set(sv, value);
+        SvROK_on(sv);
+        SvREADONLY_on(value);
+    }
+}
+
 MODULE = GPIO               PACKAGE = GPIO
+
+INCLUDE: const-xs.inc
 
 SV*
 _get_max_pin(fd)
@@ -156,7 +185,6 @@ SV*
 _toggle_pin_value(fd, pinno)
     int fd;
     int pinno;
-    int value;
 INIT:
     int err;
     struct gpio_req req;
