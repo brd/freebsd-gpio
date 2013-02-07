@@ -29,7 +29,7 @@ def flags2str(flags):
 
     return ','.join(strs)
 
-gpioc = gpio.controller(0)
+gpioc = gpio.controller()
 max_pin = gpioc.max_pin
 
 print "Max pin #: %d" % max_pin

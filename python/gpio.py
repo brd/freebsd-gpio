@@ -48,8 +48,8 @@ class GpioPin(object):
         return self.controller.set_pin_config(self.number, config)
 
 class GpioController(object):
-    def __init__ (self, unit = 0):
-        self._fd =  os.open("/dev/gpioc%d" % unit, os.O_RDONLY)
+    def __init__ (self, dev):
+        self._fd =  os.open(dev, os.O_RDONLY)
 
     def __del__(self):
         os.close(self._fd)
@@ -120,8 +120,8 @@ class GpioController(object):
             raise GpioError(e)
         return max_pin
 
-def controller (unit):
-    return GpioController(unit)
+def controller (dev = "/dev/gpioc0"):
+    return GpioController(dev)
 
 if __name__ == "__main__":
     pass
