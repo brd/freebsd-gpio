@@ -27,21 +27,118 @@ package GPIO;
 use warnings;
 use strict;
 
+our $VERSION = '0.01';
+
+sub new
+{
+    my ($class) = @_;
+
+    my $self = ();
+    $self->{fd} = -1;
+    bless $self, $class;
+}
+
+sub open
+{
+    my ($self, $dev) = @_;
+
+    $dev = "/dev/gpioc0" if (!defined($dev));
+
+    if (open F, "< $dev") {
+        $self->{file} = *F;
+        $self->{fd} = fileno(F);
+        return 1;
+    }
+
+    return;
+}
+
+sub close
+{
+    my $self = shift;
+
+    if ($self->{fd} != -1) {
+        close $self->{file};
+        $self->{fd} = -1;
+    }
+}
+
+sub get_max_pin
+{
+    my $self = shift;
+
+    return _get_max_pin($self->{fd});
+}
+
+sub is_pin_valid
+{
+    my ($self, $pin) = @_;
+
+    return _is_pin_valid($self->{fd}, $pin);
+}
+
+sub get_pin_name
+{
+    my ($self, $pin) = @_;
+
+    return _get_pin_name($self->{fd}, $pin);
+}
+
+sub get_pin_caps
+{
+    my ($self, $pin) = @_;
+
+    return _get_pin_caps($self->{fd}, $pin);
+}
+
+sub get_pin_config
+{
+    my ($self, $pin) = @_;
+
+    return _get_pin_config($self->{fd}, $pin);
+}
+
+sub set_pin_config
+{
+    my ($self, $pin, $config) = @_;
+
+    return _set_pin_config($self->{fd}, $pin, $config);
+}
+
+sub get_pin_value
+{
+    my ($self, $pin) = @_;
+
+    return _get_pin_value($self->{fd}, $pin);
+}
+
+sub set_pin_value
+{
+    my ($self, $pin, $value) = @_;
+
+    return _set_pin_value($self->{fd}, $pin, $value);
+}
+
+sub toggle_pin_value
+{
+    my ($self, $pin) = @_;
+
+    return _toggle_pin_value($self->{fd}, $pin);
+}
+
+require XSLoader;
+XSLoader::load('GPIO', $VERSION);
+
 1;
 __END__;
 
 =head1 NAME
 
-GPIO - The great new GPIO!
+GPIO - Perl module for working with GPIO on FreeBSD
 
 =head1 VERSION
 
 Version 0.01
-
-=cut
-
-our $VERSION = '0.01';
-
 
 =head1 SYNOPSIS
 
