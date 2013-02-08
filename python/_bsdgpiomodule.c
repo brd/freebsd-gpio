@@ -26,7 +26,6 @@
 
 #include <Python.h>
 
-#include <stdio.h>
 #include <sys/gpio.h>
 
 static PyObject *GpioError;
