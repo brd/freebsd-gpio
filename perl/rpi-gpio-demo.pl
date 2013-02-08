@@ -2,7 +2,6 @@
 # Copyright (C) 2007 by Oleksandr Tymoshenko. All rights reserved.
 
 use strict;
-use lib qw(/root/freebsd-gpio/perl/blib/lib/ /root/freebsd-gpio/perl/blib/arch);
 use Time::HiRes qw(usleep);
 use GPIO;
 
